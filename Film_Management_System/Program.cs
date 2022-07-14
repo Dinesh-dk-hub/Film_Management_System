@@ -1,9 +1,12 @@
 ﻿using Data_Access_Layer;
 using Entity_Layer;
+using Business_Layer;
 using Microsoft.Extensions.Configuration;
+using PanoramicData.ConsoleExtensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security;
 
 namespace Film_Management_System
 {
@@ -12,7 +15,7 @@ namespace Film_Management_System
 
         static void Main(string[] args)
         {
-
+            
 
             int choice = 0;
             Console.WriteLine("Film Management System");
@@ -154,9 +157,11 @@ namespace Film_Management_System
                 Console.WriteLine("Enter your Username:");
                 string Pname = Console.ReadLine();
                 Console.WriteLine("Enter your password:");
-                string Password1 = Console.ReadLine();
-               
+                
 
+
+                var Password1= ConsolePlus.ReadPassword();
+                Console.WriteLine();
                 //bool status = bll.VerifyPatient(pat);
                 if (Pname == "admin" && Password1 == "admin")
                 {
@@ -171,20 +176,20 @@ namespace Film_Management_System
             }
             static void GetFilmByActor()
             {
-                ActorDataAccessLayer k = new ActorDataAccessLayer();
+                ActorBusinessLayer k = new ActorBusinessLayer();
                 Console.WriteLine("Enter the actor name");
                 string h = Console.ReadLine();
-                List<Film> m = k.GetFilmByActor(h);
+                List<Film> m = k.GetFilmByRating(h);
                 foreach (var s in m)
                 {
                     Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
                 }
 
-                Console.Read();
+               
             }
             static void GetFilmByName()
             {
-                FilmDataAccessLayer k = new FilmDataAccessLayer();
+                FilmBusinessLayer k = new FilmBusinessLayer();
                 Console.WriteLine("Enter the movie name");
                 string h = Console.ReadLine();
                 Film m = k.GetFilmByTitle(h);
@@ -194,7 +199,7 @@ namespace Film_Management_System
 
                 }
 
-                Console.Read();
+               
             }
             static void GetFilmByCategory()
             {
@@ -207,11 +212,11 @@ namespace Film_Management_System
                     Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
                 }
 
-                Console.Read();
+                
             }
             static void GetFilmByLanguage()
             {
-                LanguageDataAccessLayer k = new LanguageDataAccessLayer();
+                LanguageBusinessLayer k = new LanguageBusinessLayer();
                 Console.WriteLine("Enter the Language Name");
                 string h = Console.ReadLine();
                 var m = k.GetFilmByLanguage(h);
@@ -220,11 +225,11 @@ namespace Film_Management_System
                     Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
                 }
 
-                Console.Read();
+                
             }
            static void GetFilmByRating()
             {
-                FilmDataAccessLayer k = new FilmDataAccessLayer();
+                FilmBusinessLayer k = new FilmBusinessLayer();
                 Console.WriteLine("Enter the Rating");
                 int h = Convert.ToInt32(Console.ReadLine());
                 List<Film> m = k.GetFilmByRating(h);
@@ -233,23 +238,22 @@ namespace Film_Management_System
                     Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
                 }
 
-                Console.Read();
+                Console.WriteLine();
             }
             static void GetAllMovies()
             {
-                FilmDataAccessLayer k = new FilmDataAccessLayer();
-
+                FilmBusinessLayer k = new FilmBusinessLayer();
                 List<Film> lstFilms = k.GetAllDetails();
                 foreach (var s in lstFilms)
                 {
                     Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
                 }
-                Console.Read();
+                
 
             }
             static void GetMoviesByThreeMethod()
             {
-                FilmDataAccessLayer k = new FilmDataAccessLayer();
+                FilmBusinessLayer k = new FilmBusinessLayer();
                 Console.WriteLine("Enter the movie name");
                 string j = Console.ReadLine();
                 Console.WriteLine("Enter the year:");
@@ -263,16 +267,15 @@ namespace Film_Management_System
                         Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
                     }
 
-                
+                Console.WriteLine();
 
-                Console.Read();
+                
             }
             static void AddMovie()
             {
-                FilmDataAccessLayer dl = new FilmDataAccessLayer();
+                FilmBusinessLayer dl = new FilmBusinessLayer();
                 Film fil = new Film();
                 fil.Description = Utility.GetValidRawInput("the Description/Category").Trim();
-
                 fil.Title = Utility.GetValidRawInput("the Title");
                 fil.ReleaseYear = Utility.GetValidRawInput("the Release Year").Trim();
                 fil.LanguageId = Utility.GetValidIntInput(" the LanguageID");
@@ -308,7 +311,7 @@ namespace Film_Management_System
             static void ModifyMovie()
             {
                 Film fil = new Film();
-                FilmDataAccessLayer k = new FilmDataAccessLayer();
+                FilmBusinessLayer k = new FilmBusinessLayer();
                 fil.FilmId = Utility.GetValidIntInput("the Movie ID");
                 fil.Title = Utility.GetValidRawInput("the Title");
                 fil.ReleaseYear = Utility.GetValidRawInput("the Release Year").Trim();
@@ -327,9 +330,9 @@ namespace Film_Management_System
             static void RemoveFilm()
             {
                 Film fil = new Film();
-                FilmDataAccessLayer fl = new FilmDataAccessLayer();
+                FilmBusinessLayer k = new FilmBusinessLayer();
                 fil.FilmId = Utility.GetValidIntInput("the Movie ID to be deleted");
-                var f = fl.RemoveFilm(fil);
+                bool f = k.RemoveMovie(fil);
                 if (f)
                 {
                     Console.WriteLine("Success");
@@ -340,6 +343,7 @@ namespace Film_Management_System
                     Console.WriteLine("Failed");
                 }
             }
+            Console.Read();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Data_Access_Layer
             {
                 using (SqlConnection con = new SqlConnection(CnString))
                 {
-                    SqlCommand cmd = new SqlCommand($"SELECT FILMS.TITLE, FILMS.RELEASE_YEAR, FILMS.RATING FROM FILMS LEFT JOIN ACTOR ON ACTOR.Actor_id = FILMS.Actor_id where CONVERT(VARCHAR, ACTOR.First_Name)= '"+name+"'", con);
+                    SqlCommand cmd = new SqlCommand($"select title, Release_Year, Rating from FILMS where FILMS.Actor_id = (SELECT Actor_id FROM ACTOR WHERE  CONVERT(VARCHAR, ACTOR.First_Name) = '"+name+"')", con);
                     cmd.CommandType = CommandType.Text;
                     con.Open();
 

@@ -29,21 +29,23 @@ namespace Data_Access_Layer
                         lstFilms.Add(new Film
                         {
                             FilmId = Convert.ToInt32(rdr[0]),
-                            Description = rdr.GetString("Description"),
-                            Title = rdr.GetString("Title"),
-                            ReleaseYear = rdr[3].ToString(),
-                            LanguageId = Convert.ToInt32(rdr[4]),
-                            OriginalLanguageId = Convert.ToInt32(rdr[5]),
-                            RentalDuration = rdr[6].ToString(),
-                            Length = Convert.ToInt32(rdr[7]),
-                            ReplacementCost = Convert.ToInt32(rdr[8]),
-                            Rating = Convert.ToInt32(rdr[9]),
-                            SpecialFeatures = rdr.GetString("Special_features"),
-                            ActorId = Convert.ToInt32(rdr[11]),
-                            CategoryId = Convert.ToInt32(rdr[12])
+                            Description = rdr[1].ToString(),
+                            Title = rdr[2].ToString(),
+                            
+                            LanguageId = Convert.ToInt32(rdr[3]),
+                            OriginalLanguageId = Convert.ToInt32(rdr[4]),
+                            
+                            Length = Convert.ToInt32(rdr[5]),
+                            ReplacementCost = Convert.ToInt32(rdr[6]),
+                            Rating = Convert.ToInt32(rdr[7]),
+                            SpecialFeatures = rdr[8].ToString(),
+                            ActorId = Convert.ToInt32(rdr[9]),
+                            CategoryId = Convert.ToInt32(rdr[10]),
+                            ReleaseYear = rdr[11].ToString(),
+                            RentalDuration = rdr[12].ToString()
 
 
-                        }) ;
+                        }) ; 
                     }
                 }
             }
