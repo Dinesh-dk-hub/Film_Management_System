@@ -9,10 +9,10 @@ namespace Entity_Layer
         public int FilmId { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
-        public DateTime ReleaseYear { get; set; }
+        public string ReleaseYear { get; set; }
         public int LanguageId { get; set; }
         public int OriginalLanguageId { get; set; }
-        public DateTime RentalDuration { get; set; }
+        public string RentalDuration { get; set; }
         public int Length { get; set; }
         public int ReplacementCost { get; set; }
         public int Rating { get; set; }

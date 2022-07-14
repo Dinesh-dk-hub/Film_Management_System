@@ -9,8 +9,8 @@ namespace Data_Access_Layer
 {
     public class CategoryDataAccessLayer: BaseDAL
     {
-        public Film GetFilmByCategory(string category) {
-            
+        public List<Film> GetFilmByCategory(string category) {
+            List<Film> lstCategory = new List<Film>();
             Film f = new Film();
             try
             {
@@ -21,14 +21,14 @@ namespace Data_Access_Layer
                     con.Open();
 
                     SqlDataReader rdr = cmd.ExecuteReader();
-                    if (rdr.HasRows)
+                    while (rdr.Read())
                     {
-                        rdr.Read();
-                        f.Title = rdr.GetString("Title");
-                        f.ReleaseYear = rdr.GetDateTime("Release_Year");
-                        f.Rating = Convert.ToInt32(rdr[2]);
-
-                    }
+                        lstCategory.Add(new Film {
+                            Title = rdr.GetString("Title"),
+                        ReleaseYear = rdr.GetString("Release_Year"),
+                        Rating = Convert.ToInt32(rdr[2])
+                    });
+                }
                     con.Close();
                 }
             }
@@ -36,7 +36,7 @@ namespace Data_Access_Layer
             {
                 throw e;
             }
-            return f;
+            return lstCategory;
         }
     }
     }

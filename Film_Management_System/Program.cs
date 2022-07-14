@@ -9,38 +9,180 @@ namespace Film_Management_System
 {
     class Program : BaseDAL
     {
-        /*     private static IConfiguration _iconfiguration;
-
-             static void GetAppSettingsFile()
-             {
-                 var builder = new ConfigurationBuilder()
-                     .SetBasePath(Directory.GetCurrentDirectory())
-                     .AddJsonFile("appSettings.json",
-                         optional: false, reloadOnChange: true);
-                 _iconfiguration = builder.Build();
-             }
-     */
 
         static void Main(string[] args)
         {
-            GetMoviesByThreeMethod();
 
 
-            void GetFilmByActor()
+            int choice = 0;
+            Console.WriteLine("Film Management System");
+            
+            Console.WriteLine("-------------------------");
+            Console.WriteLine();
+            Console.WriteLine("Welcome to Film Management System");
+
+            
+            do
+            {
+                
+                Console.WriteLine("1.Admin");
+                    Console.WriteLine("2.Customer");
+                    Console.WriteLine("3.Exit");
+                    Console.WriteLine("Hi, Enter your choice:");
+                    choice = int.Parse(Console.ReadLine());
+                
+                switch (choice)
+                {
+                    case 1:
+
+                        VerifyAdmin();
+                        
+                        break;
+                    case 2:
+
+
+                        CustomerFeatures();
+                            break;
+                       
+                    case 3:
+                        break;
+                    
+
+                }
+            } while (choice != 3);
+
+            Console.ReadKey();
+        
+            static void AdminFeatures()
+            {
+                int nm = 0;
+                Console.WriteLine("1.Add a Movie");
+                Console.WriteLine("2.Modify a Movie");
+                Console.WriteLine("3.Remove a Movie");
+                Console.WriteLine("4.View Film Summary");
+
+
+                nm = int.Parse(Console.ReadLine());
+
+                if (nm == 1)
+                {
+                    AddMovie();
+                    AdminFeatures();
+
+                }
+                else if (nm == 2)
+                {
+                    ModifyMovie();
+                    AdminFeatures();
+
+
+                }
+                else if (nm == 3)
+                {
+                    RemoveFilm();
+                    AdminFeatures();
+                }
+                else if (nm == 4)
+                {
+                    GetAllMovies();
+                    AdminFeatures();
+
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect Choice Entered!");
+                }
+            }
+            static void CustomerFeatures()
+            {
+                int j = 0;
+                Console.WriteLine("1.Search Film By Name");
+                Console.WriteLine("2.Search Film By Actor");
+                Console.WriteLine("3.Search Film By Category");
+                Console.WriteLine("4.Search Film By Language");
+                Console.WriteLine("5.Search Film By Rating");
+                Console.WriteLine("6.Search Film By All Methods");
+                Console.WriteLine("7.View Film Summary");
+
+                j = int.Parse(Console.ReadLine());
+
+                if (j == 1)
+                {
+                    GetFilmByName();
+                    CustomerFeatures();
+
+                }
+                else if (j == 2)
+                {
+                    GetFilmByActor();
+                    CustomerFeatures();
+                }
+                else if (j == 3)
+                {
+                    GetFilmByCategory();
+                    CustomerFeatures();
+                }
+                else if (j == 4)
+                {
+                    GetFilmByLanguage();
+                    CustomerFeatures();
+                }
+                else if (j == 5)
+                {
+                    GetFilmByRating();
+                    CustomerFeatures();
+                }
+                else if (j == 6)
+                {
+                    GetMoviesByThreeMethod();
+                    CustomerFeatures();
+                }
+                else if (j == 7)
+                {
+                    GetAllMovies();
+                    CustomerFeatures();
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect Choice Entered!");
+                }
+            }
+            static void VerifyAdmin()
+            {
+                Film fil = new Film();
+                Console.WriteLine("Enter your details to Login");
+                Console.WriteLine("Enter your Username:");
+                string Pname = Console.ReadLine();
+                Console.WriteLine("Enter your password:");
+                string Password1 = Console.ReadLine();
+               
+
+                //bool status = bll.VerifyPatient(pat);
+                if (Pname == "admin" && Password1 == "admin")
+                {
+                    Console.WriteLine("User Verification Successful!");
+                    AdminFeatures();
+                }
+                else
+                {
+                    Console.WriteLine("User Verification Unsuccessful");
+                }
+
+            }
+            static void GetFilmByActor()
             {
                 ActorDataAccessLayer k = new ActorDataAccessLayer();
                 Console.WriteLine("Enter the actor name");
                 string h = Console.ReadLine();
-                Film m = k.GetFilmByActor(h);
-                if (m != null)
+                List<Film> m = k.GetFilmByActor(h);
+                foreach (var s in m)
                 {
-                    Console.WriteLine("{0}\t{1}\t{2}", m.Title, m.ReleaseYear, m.Rating);
-
+                    Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
                 }
 
                 Console.Read();
             }
-            void GetFilmByName()
+            static void GetFilmByName()
             {
                 FilmDataAccessLayer k = new FilmDataAccessLayer();
                 Console.WriteLine("Enter the movie name");
@@ -54,61 +196,58 @@ namespace Film_Management_System
 
                 Console.Read();
             }
-            void GetFilmByCategory()
+            static void GetFilmByCategory()
             {
                 CategoryDataAccessLayer k = new CategoryDataAccessLayer();
                 Console.WriteLine("Enter the Category name");
                 string h = Console.ReadLine();
-                Film m = k.GetFilmByCategory(h);
-                if (m != null)
+                var m = k.GetFilmByCategory(h);
+                foreach (var s in m)
                 {
-                    Console.WriteLine("{0}\t{1}\t{2}", m.Title, m.ReleaseYear, m.Rating);
-
+                    Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
                 }
-               
+
                 Console.Read();
             }
-            void GetFilmByLanguage()
+            static void GetFilmByLanguage()
             {
                 LanguageDataAccessLayer k = new LanguageDataAccessLayer();
                 Console.WriteLine("Enter the Language Name");
                 string h = Console.ReadLine();
-                Film m = k.GetFilmByLanguage(h);
-                if (m != null)
+                var m = k.GetFilmByLanguage(h);
+                foreach (var s in m)
                 {
-                    Console.WriteLine("{0}\t{1}\t{2}", m.Title, m.ReleaseYear, m.Rating);
-
+                    Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
                 }
 
                 Console.Read();
             }
-            void GetFilmByRating()
+           static void GetFilmByRating()
             {
                 FilmDataAccessLayer k = new FilmDataAccessLayer();
                 Console.WriteLine("Enter the Rating");
                 int h = Convert.ToInt32(Console.ReadLine());
-                Film m = k.GetFilmByRating(h);
-                if (m != null)
+                List<Film> m = k.GetFilmByRating(h);
+                foreach ( var s in m)
                 {
-                    Console.WriteLine("{0}\t{1}\t{2}", m.Title, m.ReleaseYear, m.Rating);
-
+                    Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
                 }
 
                 Console.Read();
             }
-            void GetAllMovies()
+            static void GetAllMovies()
             {
                 FilmDataAccessLayer k = new FilmDataAccessLayer();
-                
+
                 List<Film> lstFilms = k.GetAllDetails();
-               foreach(var s in lstFilms)
+                foreach (var s in lstFilms)
                 {
                     Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
                 }
                 Console.Read();
-            
+
             }
-            void GetMoviesByThreeMethod()
+            static void GetMoviesByThreeMethod()
             {
                 FilmDataAccessLayer k = new FilmDataAccessLayer();
                 Console.WriteLine("Enter the movie name");
@@ -117,16 +256,91 @@ namespace Film_Management_System
                 string num = Console.ReadLine();
                 Console.WriteLine("Enter the Rating");
                 int h = Convert.ToInt32(Console.ReadLine());
-                Film m = k.GetFilmByMethods(j, num, h);
-                if (m != null)
-                {
-                    Console.WriteLine("{0}\t{1}\t{2}", m.Title, m.ReleaseYear, m.Rating);
+                var m = k.GetFilmByMethods(j, num, h);
 
-                }
+                    foreach (var s in m)
+                    {
+                        Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
+                    }
+
+                
 
                 Console.Read();
             }
+            static void AddMovie()
+            {
+                FilmDataAccessLayer dl = new FilmDataAccessLayer();
+                Film fil = new Film();
+                fil.Description = Utility.GetValidRawInput("the Description/Category").Trim();
+
+                fil.Title = Utility.GetValidRawInput("the Title");
+                fil.ReleaseYear = Utility.GetValidRawInput("the Release Year").Trim();
+                fil.LanguageId = Utility.GetValidIntInput(" the LanguageID");
+                
+                fil.OriginalLanguageId = Utility.GetValidIntInput("the Original_LanguageID");
+                
+                fil.RentalDuration = Utility.GetValidRawInput("the RentalDuration");
+                
+          
+            
+                fil.Length = Utility.GetValidIntInput("the Length");
+                
+                fil.ReplacementCost = Utility.GetValidIntInput("the Replacement Cost");
+             
+                fil.Rating = Utility.GetValidIntInput("the Rating");
+                fil.SpecialFeatures = Utility.GetValidRawInput("the Special Features");
+             
+                fil.ActorId = Utility.GetValidIntInput("the ActorID");
+                
+                fil.CategoryId = Utility.GetValidIntInput("the CategoryID");
+                bool h = dl.NewMovie(fil);
+                if (h)
+                {
+                    Console.WriteLine("Success");
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+                
+                
+            }
+            static void ModifyMovie()
+            {
+                Film fil = new Film();
+                FilmDataAccessLayer k = new FilmDataAccessLayer();
+                fil.FilmId = Utility.GetValidIntInput("the Movie ID");
+                fil.Title = Utility.GetValidRawInput("the Title");
+                fil.ReleaseYear = Utility.GetValidRawInput("the Release Year").Trim();
+                fil.Rating = Utility.GetValidIntInput("the Rating");
+                bool g = k.Modify(fil);
+                if (g)
+                {
+
+                    Console.WriteLine("Success");
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
+            static void RemoveFilm()
+            {
+                Film fil = new Film();
+                FilmDataAccessLayer fl = new FilmDataAccessLayer();
+                fil.FilmId = Utility.GetValidIntInput("the Movie ID to be deleted");
+                var f = fl.RemoveFilm(fil);
+                if (f)
+                {
+                    Console.WriteLine("Success");
+
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
         }
     }
-    }
+}
 

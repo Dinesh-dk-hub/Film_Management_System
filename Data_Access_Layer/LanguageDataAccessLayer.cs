@@ -9,9 +9,10 @@ namespace Data_Access_Layer
 {
     public class LanguageDataAccessLayer: BaseDAL
     {
-        public Film GetFilmByLanguage(string lang) {
+        public List<Film> GetFilmByLanguage(string lang) {
             Film f = new Film();
-            try
+            List<Film> lstLanguage = new List<Film>();
+                try
             {
                 using (SqlConnection con = new SqlConnection(CnString))
                 {
@@ -20,13 +21,14 @@ namespace Data_Access_Layer
                     con.Open();
 
                     SqlDataReader rdr = cmd.ExecuteReader();
-                    if (rdr.HasRows)
+                    while (rdr.Read())
                     {
-                        rdr.Read();
-                        f.Title = rdr.GetString("Title");
-                        f.ReleaseYear = rdr.GetDateTime("Release_Year");
-                        f.Rating = Convert.ToInt32(rdr[2]);
-
+                        lstLanguage.Add(new Film
+                        {
+                            Title = rdr.GetString("Title"),
+                            ReleaseYear = rdr.GetString("Release_Year"),
+                            Rating = Convert.ToInt32(rdr[2])
+                        });
                     }
                     con.Close();
                 }
@@ -35,7 +37,7 @@ namespace Data_Access_Layer
             {
                 throw e;
             }
-            return f;
+            return lstLanguage;
         }
     }
     }
