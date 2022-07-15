@@ -182,12 +182,20 @@ namespace Film_Management_System
                 Console.WriteLine("Enter the actor name");
                 string h = Console.ReadLine();
                 List<Film> m = k.GetFilmByRating(h);
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine(String.Format("|{0,11}|{1,9}|{2,9}|", "Title", "Release_Year", "Rating"));
+                Console.WriteLine("-----------------------------------");
                 foreach (var s in m)
                 {
-                    Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
-                }
 
-               
+                    Console.WriteLine(String.Format("|{0,11}|{1,11}|{2,9}|", s.Title, s.ReleaseYear, s.Rating));
+
+
+
+                }
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine();
+
             }
             static void GetFilmByName()
             {
@@ -195,13 +203,20 @@ namespace Film_Management_System
                 Console.WriteLine("Enter the movie name");
                 string h = Console.ReadLine();
                 Film m = k.GetFilmByTitle(h);
-                if (m != null)
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine(String.Format("|{0,11}|{1,9}|{2,9}|", "Title", "Release_Year", "Rating"));
+                Console.WriteLine("-----------------------------------");
+                if(m!=null)
                 {
-                    Console.WriteLine("{0}\t{1}\t{2}", m.Title, m.ReleaseYear, m.Rating);
+
+                    Console.WriteLine(String.Format("|{0,11}|{1,11}|{2,9}|", m.Title, m.ReleaseYear, m.Rating));
+
+
 
                 }
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine();
 
-               
             }
             static void GetFilmByCategory()
             {
@@ -209,12 +224,20 @@ namespace Film_Management_System
                 Console.WriteLine("Enter the Category name");
                 string h = Console.ReadLine();
                 var m = k.GetFilmByCategory(h);
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine(String.Format("|{0,11}|{1,9}|{2,9}|", "Title", "Release_Year", "Rating"));
+                Console.WriteLine("-----------------------------------");
                 foreach (var s in m)
                 {
-                    Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
-                }
 
-                
+                    Console.WriteLine(String.Format("|{0,11}|{1,11}|{2,9}|", s.Title, s.ReleaseYear, s.Rating));
+
+
+
+                }
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine();
+
             }
             static void GetFilmByLanguage()
             {
@@ -222,12 +245,19 @@ namespace Film_Management_System
                 Console.WriteLine("Enter the Language Name");
                 string h = Console.ReadLine();
                 var m = k.GetFilmByLanguage(h);
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine(String.Format("|{0,11}|{1,9}|{2,9}|", "Title", "Release_Year", "Rating"));
+                Console.WriteLine("-----------------------------------");
                 foreach (var s in m)
                 {
-                    Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
-                }
 
-                
+                    Console.WriteLine(String.Format("|{0,11}|{1,11}|{2,9}|", s.Title, s.ReleaseYear, s.Rating));
+
+
+
+                }
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine();
             }
            static void GetFilmByRating()
             {
@@ -235,22 +265,37 @@ namespace Film_Management_System
                 Console.WriteLine("Enter the Rating");
                 int h = Convert.ToInt32(Console.ReadLine());
                 List<Film> m = k.GetFilmByRating(h);
-                foreach ( var s in m)
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine(String.Format("|{0,11}|{1,9}|{2,9}|", "Title", "Release_Year", "Rating"));
+                Console.WriteLine("-----------------------------------");
+                foreach (var s in m)
                 {
-                    Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
-                }
 
+                    Console.WriteLine(String.Format("|{0,11}|{1,11}|{2,9}|", s.Title, s.ReleaseYear, s.Rating));
+
+
+
+                }
+                Console.WriteLine("-----------------------------------");
                 Console.WriteLine();
             }
             static void GetAllMovies()
             {
                 FilmBusinessLayer k = new FilmBusinessLayer();
                 List<Film> lstFilms = k.GetAllDetails();
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine(String.Format("|{0,11}|{1,9}|{2,9}|", "Title", "Release_Year", "Rating"));
+                Console.WriteLine("-----------------------------------");
                 foreach (var s in lstFilms)
                 {
-                    Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
+
+                    Console.WriteLine(String.Format("|{0,11}|{1,11}|{2,9}|", s.Title, s.ReleaseYear, s.Rating));
+
+
+
                 }
-                
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine();
 
             }
             static void GetMoviesByThreeMethod()
@@ -263,12 +308,18 @@ namespace Film_Management_System
                 Console.WriteLine("Enter the Rating");
                 int h = Convert.ToInt32(Console.ReadLine());
                 var m = k.GetFilmByMethods(j, num, h);
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine(String.Format("|{0,11}|{1,9}|{2,9}|", "Title", "Release_Year", "Rating"));
+                Console.WriteLine("------------------------------");
+                foreach (var s in m)
+                {
 
-                    foreach (var s in m)
-                    {
-                        Console.WriteLine("{0}\t{1}\t{2}", s.Title, s.ReleaseYear, s.Rating);
-                    }
+                    Console.WriteLine(String.Format("|{0,11}|{1,11}|{2,9}|", s.Title, s.ReleaseYear, s.Rating));
 
+
+
+                }
+                Console.WriteLine("-------------------------------");
                 Console.WriteLine();
 
                 
@@ -378,7 +429,7 @@ namespace Film_Management_System
                     Console.WriteLine(String.Format("|{0,11}|{1,9}|{2,9}|", s.ActorId, s.FirstName, s.LastName));
 
 
-                    // Console.WriteLine("{0}\t{1}", s.CategoryId, s.Name);
+                    
                 }
                 Console.WriteLine("----------------------------");
             }
