@@ -39,6 +39,35 @@ namespace Data_Access_Layer
             }
             return lstLanguage;
         }
+        public List<Language> GetAllLanguages()
+        {
+            var lstFilms = new List<Language>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(CnString))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT Language_id, Name FROM LANGUAGE", con);
+                    cmd.CommandType = CommandType.Text;
+                    con.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        lstFilms.Add(new Language
+                        {
+
+                            LanguageId = rdr[0].ToString(),
+                            Name = rdr[1].ToString()
+
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lstFilms;
+        }
     }
     }
 

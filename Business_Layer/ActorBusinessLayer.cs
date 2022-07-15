@@ -17,5 +17,12 @@ namespace Business_Layer
             return lstActor;
 
         }
+        public List<Actor> GetAllActors()
+        {
+            List<Actor> lstActors = new List<Actor>();
+            ActorDataAccessLayer l = new ActorDataAccessLayer();
+            lstActors = l.GetAllActors();
+            return lstActors;
+        }
     }
 }

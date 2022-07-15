@@ -38,6 +38,34 @@ namespace Data_Access_Layer
             }
             return lstCategory;
         }
+        public List<Category> GetAllCategory()
+        {
+            var lstCategory = new List<Category>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(CnString))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM CATEGORY", con);
+                    cmd.CommandType = CommandType.Text;
+                    con.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        lstCategory.Add(new Category
+                        {
+                            CategoryId = rdr[0].ToString(),
+                            Name = rdr[1].ToString()
+
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lstCategory;
+        }
     }
     }
     

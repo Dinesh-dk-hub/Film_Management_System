@@ -17,5 +17,13 @@ namespace Business_Layer
             return lstLanguage;
 
         }
+
+        public List<Language> GetAllLanguages()
+        {
+            List<Language> lstLangs = new List<Language>();
+            LanguageDataAccessLayer l = new LanguageDataAccessLayer();
+            lstLangs = l.GetAllLanguages();
+            return lstLangs;
+        }
     }
 }

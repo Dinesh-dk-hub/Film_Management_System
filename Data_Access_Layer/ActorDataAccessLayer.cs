@@ -41,6 +41,36 @@ namespace Data_Access_Layer
                 throw e;
             }
             return lstActor;
-        } 
+        }
+        public List<Actor> GetAllActors()
+        {
+            var lstActor = new List<Actor>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(CnString))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT Actor_id, First_Name, Last_Name FROM ACTOR", con);
+                    cmd.CommandType = CommandType.Text;
+                    con.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        lstActor.Add(new Actor
+                        {
+
+                            ActorId = rdr[0].ToString(),
+                            FirstName = rdr[1].ToString(),
+                            LastName = rdr[2].ToString()
+
+                        }) ;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lstActor;
+        }
     }
 }

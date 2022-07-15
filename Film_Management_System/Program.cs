@@ -94,6 +94,7 @@ namespace Film_Management_System
                 else
                 {
                     Console.WriteLine("Incorrect Choice Entered!");
+                    AdminFeatures();
                 }
             }
             static void CustomerFeatures()
@@ -148,6 +149,7 @@ namespace Film_Management_System
                 else
                 {
                     Console.WriteLine("Incorrect Choice Entered!");
+                    CustomerFeatures();
                 }
             }
             static void VerifyAdmin()
@@ -278,6 +280,7 @@ namespace Film_Management_System
                 fil.Description = Utility.GetValidRawInput("the Description/Category").Trim();
                 fil.Title = Utility.GetValidRawInput("the Title");
                 fil.ReleaseYear = Utility.GetValidRawInput("the Release Year").Trim();
+                GetAllLanguages();
                 fil.LanguageId = Utility.GetValidIntInput(" the LanguageID");
                 
                 fil.OriginalLanguageId = Utility.GetValidIntInput("the Original_LanguageID");
@@ -292,9 +295,9 @@ namespace Film_Management_System
              
                 fil.Rating = Utility.GetValidIntInput("the Rating");
                 fil.SpecialFeatures = Utility.GetValidRawInput("the Special Features");
-             
+                GetAllActors();
                 fil.ActorId = Utility.GetValidIntInput("the ActorID");
-                
+                GetAllCategory();
                 fil.CategoryId = Utility.GetValidIntInput("the CategoryID");
                 bool h = dl.NewMovie(fil);
                 if (h)
@@ -342,6 +345,62 @@ namespace Film_Management_System
                 {
                     Console.WriteLine("Failed");
                 }
+            }
+            static void GetAllLanguages()
+            {
+
+                List<Language> lstLangs = new List<Language>();
+                LanguageBusinessLayer lab = new LanguageBusinessLayer();
+                lstLangs = lab.GetAllLanguages();
+                Console.WriteLine(String.Format("|{0,5}|{1,9}|", "Language_id", "L_Name"));
+                Console.WriteLine("-----------------------");
+                foreach (var s in lstLangs)
+                {
+
+                    Console.WriteLine(String.Format("|{0,11}|{1,9}|", s.LanguageId, s.Name));
+
+
+                    // Console.WriteLine("{0}\t{1}", s.CategoryId, s.Name);
+                }
+                Console.WriteLine("-----------------------");
+            }
+            static void GetAllActors()
+            {
+
+                List<Actor> lstActors = new List<Actor>();
+                ActorBusinessLayer lab = new ActorBusinessLayer();
+                lstActors = lab.GetAllActors();
+                Console.WriteLine(String.Format("|{0,5}|{1,9}|{2,9}|", "Actor_id", "First_Name", "Last_Name"));
+                Console.WriteLine("---------------------------");
+                foreach (var s in lstActors)
+                {
+
+                    Console.WriteLine(String.Format("|{0,11}|{1,9}|{2,9}|", s.ActorId, s.FirstName, s.LastName));
+
+
+                    // Console.WriteLine("{0}\t{1}", s.CategoryId, s.Name);
+                }
+                Console.WriteLine("----------------------------");
+            }
+            static void GetAllCategory()
+            {
+                List<Category> lstCategory = new List<Category>();
+                CategoryBusinessLayer cbl = new CategoryBusinessLayer();
+                lstCategory = cbl.GetAllCategory();
+
+
+
+                Console.WriteLine(String.Format("|{0,5}|{1,9}|", "Category_id", "C_Name"));
+                Console.WriteLine("-----------------------");
+                foreach (var s in lstCategory)
+                {
+                  
+                   Console.WriteLine( String.Format("|{0,11}|{1,9}|", s.CategoryId, s.Name));
+                  
+
+                    // Console.WriteLine("{0}\t{1}", s.CategoryId, s.Name);
+                }
+                Console.WriteLine("-----------------------");
             }
             Console.Read();
         }

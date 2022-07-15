@@ -17,5 +17,12 @@ namespace Business_Layer
             return lstCategory;
 
         }
+        public List<Category> GetAllCategory()
+        {
+            List<Category> lstCategory = new List<Category>();
+            CategoryDataAccessLayer l = new CategoryDataAccessLayer();
+            lstCategory = l.GetAllCategory();
+            return lstCategory;
+        }
     }
 }

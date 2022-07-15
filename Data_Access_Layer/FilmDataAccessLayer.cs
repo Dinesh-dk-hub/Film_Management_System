@@ -159,7 +159,7 @@ namespace Data_Access_Layer
             {
                 using (SqlConnection con = new SqlConnection(CnString))
                 {
-                    SqlCommand cmd = new SqlCommand($"SELECT Title, Release_Year, Rating FROM FILMS WHERE (CONVERT(VARCHAR, Title) = '{t}' AND Rating = {rate} AND Release_Year = {year}) ", con);
+                    SqlCommand cmd = new SqlCommand($"SELECT Title, Release_Year, Rating FROM FILMS WHERE (CONVERT(VARCHAR, Title) = '{t}' AND Rating = {rate} AND CONVERT(VARCHAR, Release_Year) = '{year}')", con);
                     cmd.CommandType = CommandType.Text;
                     con.Open();
 
