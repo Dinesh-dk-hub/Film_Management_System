@@ -48,6 +48,8 @@ namespace Film_Management_System
                             break;
                        
                     case 3:
+                        Console.WriteLine("Thank You");
+
                         break;
                     
 
@@ -59,24 +61,75 @@ namespace Film_Management_System
             static void AdminFeatures()
             {
                 int nm = 0;
-                Console.WriteLine("1.Add a Movie");
-                Console.WriteLine("2.Modify a Movie");
-                Console.WriteLine("3.Remove a Movie");
-                Console.WriteLine("4.View Film Summary");
+                Console.WriteLine("1.Movie");
+                Console.WriteLine("2.Actor");
+                Console.WriteLine("3.Language");
+                Console.WriteLine("4.Rating");
+                Console.WriteLine("5.Category");
+                Console.WriteLine("6.View Film Summary");
 
 
                 nm = int.Parse(Console.ReadLine());
 
                 if (nm == 1)
                 {
-                    AddMovie();
-                    AdminFeatures();
+                    int h = 0;
+                    Console.WriteLine("1.Add a Movie");
+                    Console.WriteLine("2.Modify a Movie");
+                    Console.WriteLine("3.Remove a Movie");
+                    h = int.Parse(Console.ReadLine());
+                    if (h == 1)
+                    {
+                        AddMovie();
+                        AdminFeatures();
+                    }
+                    else if (h == 2)
+                    {
+                        ModifyMovie();
+                        AdminFeatures();
+                    }
+                    else if (h == 3)
+                    {
+                        RemoveFilm();
+                        AdminFeatures();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Incorrect Choice Entered");
+                        AdminFeatures();
+                    }
+                    
 
                 }
                 else if (nm == 2)
                 {
-                    ModifyMovie();
-                    AdminFeatures();
+
+                    int h = 0;
+                    Console.WriteLine("1.Add a Actor");
+                    Console.WriteLine("2.Modify a Actor");
+                    Console.WriteLine("Remove a Actor");
+                    h = int.Parse(Console.ReadLine());
+                    if (h == 1)
+                    {
+                        AddActor();  
+                        AdminFeatures();
+                    }
+                    else if (h == 2)
+                    {
+                        ModifyActor();
+                        AdminFeatures();
+                    }
+                    else if (h == 3)
+                    {
+                        RemoveActor();
+                        AdminFeatures();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Incorrect Choice Entered");
+                        AdminFeatures();
+                    }
+
 
 
                 }
@@ -362,10 +415,49 @@ namespace Film_Management_System
                 
                 
             }
+            static void AddActor()
+            {
+                ActorBusinessLayer dl = new ActorBusinessLayer();
+                Actor a = new Actor();
+                a.ActorId = Utility.GetValidIntInput("the ActorID");
+                a.FirstName = Utility.GetValidRawInput("the FirstName");
+                a.LastName = Utility.GetValidRawInput("the LastName");
+
+                bool h = dl.NewActor(a);
+                if (h)
+                {
+                    Console.WriteLine("Success");
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
+            static void ModifyActor()
+            {
+                Actor a = new Actor();
+                ActorBusinessLayer al = new ActorBusinessLayer();
+                GetAllActors();
+                Console.WriteLine("Enter the Actor ID");
+                a.FirstName = Utility.GetValidRawInput("the First Name");
+                a.LastName= Utility.GetValidRawInput("the Last Name");
+                bool g = al.ModifyActor(a);
+                if (g)
+                {
+
+                    Console.WriteLine("Success");
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
+
             static void ModifyMovie()
             {
                 Film fil = new Film();
                 FilmBusinessLayer k = new FilmBusinessLayer();
+                GetAllMovies();
                 fil.FilmId = Utility.GetValidIntInput("the Movie ID");
                 fil.Title = Utility.GetValidRawInput("the Title");
                 fil.ReleaseYear = Utility.GetValidRawInput("the Release Year").Trim();
@@ -374,7 +466,7 @@ namespace Film_Management_System
                 if (g)
                 {
 
-                    Console.WriteLine("Success");
+                    Console.WriteLine("Success"); 
                 }
                 else
                 {
@@ -387,6 +479,22 @@ namespace Film_Management_System
                 FilmBusinessLayer k = new FilmBusinessLayer();
                 fil.FilmId = Utility.GetValidIntInput("the Movie ID to be deleted");
                 bool f = k.RemoveMovie(fil);
+                if (f)
+                {
+                    Console.WriteLine("Success");
+
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
+            static void RemoveActor()
+            {
+                Actor a = new Actor();
+                ActorBusinessLayer k = new ActorBusinessLayer();
+                a.ActorId= Utility.GetValidIntInput("the Actor ID to be deleted");
+                bool f = k.RemoveActor(a);
                 if (f)
                 {
                     Console.WriteLine("Success");
@@ -410,8 +518,6 @@ namespace Film_Management_System
 
                     Console.WriteLine(String.Format("|{0,11}|{1,9}|", s.LanguageId, s.Name));
 
-
-                    // Console.WriteLine("{0}\t{1}", s.CategoryId, s.Name);
                 }
                 Console.WriteLine("-----------------------");
             }
@@ -448,8 +554,6 @@ namespace Film_Management_System
                   
                    Console.WriteLine( String.Format("|{0,11}|{1,9}|", s.CategoryId, s.Name));
                   
-
-                    // Console.WriteLine("{0}\t{1}", s.CategoryId, s.Name);
                 }
                 Console.WriteLine("-----------------------");
             }

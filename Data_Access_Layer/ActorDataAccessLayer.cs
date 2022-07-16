@@ -14,11 +14,13 @@ namespace Data_Access_Layer
             List<Film> lstActor = new List<Film>();
             Actor a = new Actor();
             Film f = new Film();
+            name = name.Replace(" ", "");
+
             try
             {
                 using (SqlConnection con = new SqlConnection(CnString))
                 {
-                    SqlCommand cmd = new SqlCommand($"select title, Release_Year, Rating from FILMS where FILMS.Actor_id = (SELECT Actor_id FROM ACTOR WHERE  CONVERT(VARCHAR, ACTOR.First_Name) = '"+name+"')", con);
+                    SqlCommand cmd = new SqlCommand($"select title, Release_Year, Rating from FILMS where FILMS.Actor_id IN(SELECT Actor_id FROM ACTOR WHERE(ACTOR.First_Name LIKE '"+name+"' Or CONCAT(FIRST_NAME, LAST_NAME) Like '"+name.Trim()+"'))", con);
                     cmd.CommandType = CommandType.Text;
                     con.Open();
 
@@ -58,7 +60,7 @@ namespace Data_Access_Layer
                         lstActor.Add(new Actor
                         {
 
-                            ActorId = rdr[0].ToString(),
+                            ActorId = Convert.ToInt32(rdr[0]),
                             FirstName = rdr[1].ToString(),
                             LastName = rdr[2].ToString()
 
@@ -71,6 +73,39 @@ namespace Data_Access_Layer
                 throw ex;
             }
             return lstActor;
+        }
+        public bool NewActor(Actor a)
+        {
+            SqlConnection cn = new SqlConnection(CnString);
+            string sql = $"insert into ACTOR(First_Name, Last_Name)  values('{a.FirstName}','{a.LastName}')";
+            SqlCommand cmd = new SqlCommand(sql, cn);
+            cn.Open();
+            int i = cmd.ExecuteNonQuery();
+            cn.Close();
+            cn.Dispose();
+            return true;
+        }
+        public bool ModifyActor(Actor a)
+        {
+            SqlConnection cn = new SqlConnection(CnString);
+            string sql = $"UPDATE ACTOR  SET First_Name ='{a.FirstName}' ,Last_Name ='{a.LastName}' where Actor_id={a.ActorId}";
+            SqlCommand cmd = new SqlCommand(sql, cn);
+            cn.Open();
+            int i = cmd.ExecuteNonQuery();
+            cn.Close();
+            cn.Dispose();
+            return true;
+        }
+       public bool RemoveActor(Actor a)
+        {
+            SqlConnection cn = new SqlConnection(CnString);
+            string sql = $"DELETE FROM ACTOR WHERE Film_id={a.ActorId};";
+            SqlCommand cmd = new SqlCommand(sql, cn);
+            cn.Open();
+            int i = cmd.ExecuteNonQuery();
+            cn.Close();
+            cn.Dispose();
+            return true;
         }
     }
 }

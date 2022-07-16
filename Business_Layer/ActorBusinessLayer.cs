@@ -24,5 +24,24 @@ namespace Business_Layer
             lstActors = l.GetAllActors();
             return lstActors;
         }
+        public bool NewActor(Actor a)
+        {
+           
+            ActorDataAccessLayer al = new ActorDataAccessLayer();
+            bool t = al.NewActor(a);
+            return t;
+        }
+        public bool ModifyActor(Actor a)
+        {
+            ActorDataAccessLayer al = new ActorDataAccessLayer();
+            bool g = al.ModifyActor(a);
+            return g;
+        }
+        public bool RemoveActor(Actor a)
+        {
+            ActorDataAccessLayer al = new ActorDataAccessLayer();
+            bool l = al.RemoveActor(a);
+            return l;
+        }
     }
 }
