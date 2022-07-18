@@ -96,10 +96,10 @@ namespace Data_Access_Layer
             cn.Dispose();
             return true;
         }
-       public bool RemoveActor(Actor a)
+       public bool RemoveActor(int ActorId)
         {
             SqlConnection cn = new SqlConnection(CnString);
-            string sql = $"DELETE FROM ACTOR WHERE Film_id={a.ActorId};";
+            string sql = $"DELETE FROM ACTOR WHERE Actor_id={ActorId};";
             SqlCommand cmd = new SqlCommand(sql, cn);
             cn.Open();
             int i = cmd.ExecuteNonQuery();

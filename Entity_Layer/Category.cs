@@ -6,7 +6,7 @@ namespace Entity_Layer
 {
     public class Category
     {
-        public string CategoryId { get; set; }
+        public int  CategoryId { get; set; }
         public string Name { get; set; }
         public string FilmId { get; set; }
     }

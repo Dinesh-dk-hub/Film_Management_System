@@ -55,7 +55,7 @@ namespace Data_Access_Layer
                         lstFilms.Add(new Language
                         {
 
-                            LanguageId = rdr[0].ToString(),
+                            LanguageId = Convert.ToInt32(rdr[0]),
                             Name = rdr[1].ToString()
 
                         });
@@ -67,6 +67,39 @@ namespace Data_Access_Layer
                 throw ex;
             }
             return lstFilms;
+        }
+        public bool NewLanguage(Language l)
+        {
+            SqlConnection cn = new SqlConnection(CnString);
+            string sql = $"insert into LANGUAGE(Name)  values('{l.Name}')";
+            SqlCommand cmd = new SqlCommand(sql, cn);
+            cn.Open();
+            int i = cmd.ExecuteNonQuery();
+            cn.Close();
+            cn.Dispose();
+            return true;
+        }
+        public bool ModifyLanguage(Language l)
+        {
+            SqlConnection cn = new SqlConnection(CnString);
+            string sql = $"UPDATE LANGUAGE  SET Name ='{l.Name}'  where Language_id={l.LanguageId}";
+            SqlCommand cmd = new SqlCommand(sql, cn);
+            cn.Open();
+            int i = cmd.ExecuteNonQuery();
+            cn.Close();
+            cn.Dispose();
+            return true;
+        }
+        public bool RemoveLanguage(Language l)
+        {
+            SqlConnection cn = new SqlConnection(CnString);
+            string sql = $"DELETE FROM LANGUAGE WHERE Language_id={l.LanguageId}";
+            SqlCommand cmd = new SqlCommand(sql, cn);
+            cn.Open();
+            int i = cmd.ExecuteNonQuery();
+            cn.Close();
+            cn.Dispose();
+            return true;
         }
     }
     }

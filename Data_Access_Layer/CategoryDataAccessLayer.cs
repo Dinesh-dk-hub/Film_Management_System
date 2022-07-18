@@ -53,7 +53,7 @@ namespace Data_Access_Layer
                     {
                         lstCategory.Add(new Category
                         {
-                            CategoryId = rdr[0].ToString(),
+                            CategoryId = Convert.ToInt32(rdr[0]),
                             Name = rdr[1].ToString()
 
                         });
@@ -65,6 +65,39 @@ namespace Data_Access_Layer
                 throw ex;
             }
             return lstCategory;
+        }
+        public bool NewCategory(Category l)
+        {
+            SqlConnection cn = new SqlConnection(CnString);
+            string sql = $"insert into CATEGORY(Name)  values('{l.Name}')";
+            SqlCommand cmd = new SqlCommand(sql, cn);
+            cn.Open();
+            int i = cmd.ExecuteNonQuery();
+            cn.Close();
+            cn.Dispose();
+            return true;
+        }
+        public bool ModifyCategory(Category l)
+        {
+            SqlConnection cn = new SqlConnection(CnString);
+            string sql = $"UPDATE CATEGORY  SET Name ='{l.Name}'  where Category_id={l.CategoryId}";
+            SqlCommand cmd = new SqlCommand(sql, cn);
+            cn.Open();
+            int i = cmd.ExecuteNonQuery();
+            cn.Close();
+            cn.Dispose();
+            return true;
+        }
+        public bool RemoveCategory(Category l)
+        {
+            SqlConnection cn = new SqlConnection(CnString);
+            string sql = $"DELETE FROM CATEGORY WHERE Category_id={l.CategoryId}";
+            SqlCommand cmd = new SqlCommand(sql, cn);
+            cn.Open();
+            int i = cmd.ExecuteNonQuery();
+            cn.Close();
+            cn.Dispose();
+            return true;
         }
     }
     }

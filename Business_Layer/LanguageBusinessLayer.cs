@@ -25,5 +25,24 @@ namespace Business_Layer
             lstLangs = l.GetAllLanguages();
             return lstLangs;
         }
+        public bool NewLanguage(Language l)
+        {
+
+            LanguageDataAccessLayer al = new LanguageDataAccessLayer();
+            bool t = al.NewLanguage(l);
+            return t;
+        }
+        public bool ModifyLanguage(Language l)
+        {
+            LanguageDataAccessLayer al = new LanguageDataAccessLayer();
+            bool g = al.ModifyLanguage(l);
+            return g;
+        }
+        public bool RemoveLanguage(Language l)
+        {
+            LanguageDataAccessLayer al = new LanguageDataAccessLayer();
+            bool k = al.RemoveLanguage(l);
+            return k;
+        }
     }
 }

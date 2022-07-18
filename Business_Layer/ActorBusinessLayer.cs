@@ -37,10 +37,10 @@ namespace Business_Layer
             bool g = al.ModifyActor(a);
             return g;
         }
-        public bool RemoveActor(Actor a)
+        public bool RemoveActor(int ActorId)
         {
             ActorDataAccessLayer al = new ActorDataAccessLayer();
-            bool l = al.RemoveActor(a);
+            bool l = al.RemoveActor(ActorId);
             return l;
         }
     }

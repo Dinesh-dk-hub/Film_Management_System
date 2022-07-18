@@ -24,5 +24,25 @@ namespace Business_Layer
             lstCategory = l.GetAllCategory();
             return lstCategory;
         }
+        public bool NewCategory(Category l)
+        {
+
+            CategoryDataAccessLayer al = new CategoryDataAccessLayer();
+            bool t = al.NewCategory(l);
+            return t;
+        }
+        public bool ModifyCategory(Category l)
+            
+        {
+            CategoryDataAccessLayer al = new CategoryDataAccessLayer();
+            bool g = al.ModifyCategory(l);
+            return g;
+        }
+        public bool RemoveCategory(Category l)
+        {
+            CategoryDataAccessLayer al = new CategoryDataAccessLayer();
+            bool k = al.RemoveCategory(l);
+            return k;
+        }
     }
 }

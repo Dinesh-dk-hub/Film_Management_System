@@ -6,7 +6,7 @@ namespace Entity_Layer
 {
     public class Language
     {
-        public string LanguageId { get; set; }
+        public int LanguageId { get; set; }
         public string Name { get; set; }
         public string FilmId { get; set; }
     }

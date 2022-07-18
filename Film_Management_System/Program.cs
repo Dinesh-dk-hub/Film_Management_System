@@ -64,9 +64,9 @@ namespace Film_Management_System
                 Console.WriteLine("1.Movie");
                 Console.WriteLine("2.Actor");
                 Console.WriteLine("3.Language");
-                Console.WriteLine("4.Rating");
-                Console.WriteLine("5.Category");
-                Console.WriteLine("6.View Film Summary");
+              
+                Console.WriteLine("4.Category");
+                Console.WriteLine("5.View Film Summary");
 
 
                 nm = int.Parse(Console.ReadLine());
@@ -98,7 +98,7 @@ namespace Film_Management_System
                         Console.WriteLine("Incorrect Choice Entered");
                         AdminFeatures();
                     }
-                    
+
 
                 }
                 else if (nm == 2)
@@ -107,11 +107,11 @@ namespace Film_Management_System
                     int h = 0;
                     Console.WriteLine("1.Add a Actor");
                     Console.WriteLine("2.Modify a Actor");
-                    Console.WriteLine("Remove a Actor");
+                    Console.WriteLine("3.Remove a Actor");
                     h = int.Parse(Console.ReadLine());
                     if (h == 1)
                     {
-                        AddActor();  
+                        AddActor();
                         AdminFeatures();
                     }
                     else if (h == 2)
@@ -129,16 +129,68 @@ namespace Film_Management_System
                         Console.WriteLine("Incorrect Choice Entered");
                         AdminFeatures();
                     }
-
-
-
                 }
                 else if (nm == 3)
                 {
-                    RemoveFilm();
-                    AdminFeatures();
+
+                    int h = 0;
+                    Console.WriteLine("1.Add a Language");
+                    Console.WriteLine("2.Modify a Language");
+                    Console.WriteLine("3.Remove a Language");
+                    h = int.Parse(Console.ReadLine());
+                    if (h == 1)
+                    {
+                        GetAllLanguages();
+                        AddLanguage();
+                        AdminFeatures();
+                    }
+                    else if (h == 2)
+                    {
+                        ModifyLanguage();
+                        AdminFeatures();
+                    }
+                    else if (h == 3)
+                    {
+                        RemoveLanguage();
+                        AdminFeatures();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Incorrect Choice Entered");
+                        AdminFeatures();
+                    }
                 }
                 else if (nm == 4)
+                {
+
+                    int h = 0;
+                    Console.WriteLine("1.Add a Category");
+                    Console.WriteLine("2.Modify a Category");
+                    Console.WriteLine("3.Remove a Category");
+                    h = int.Parse(Console.ReadLine());
+                    if (h == 1)
+                    {
+                        AddCategory();
+                        AdminFeatures();
+                    }
+                    else if (h == 2)
+                    {
+                        RemoveCategory();
+                        AdminFeatures();
+                    }
+                    else if (h == 3)
+                    {
+                        RemoveCategory();
+                        AdminFeatures();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Incorrect Choice Entered");
+                        AdminFeatures();
+                    }
+                }
+
+                else if (nm == 5)
                 {
                     GetAllMovies();
                     AdminFeatures();
@@ -369,8 +421,6 @@ namespace Film_Management_System
 
                     Console.WriteLine(String.Format("|{0,11}|{1,11}|{2,9}|", s.Title, s.ReleaseYear, s.Rating));
 
-
-
                 }
                 Console.WriteLine("-------------------------------");
                 Console.WriteLine();
@@ -419,6 +469,7 @@ namespace Film_Management_System
             {
                 ActorBusinessLayer dl = new ActorBusinessLayer();
                 Actor a = new Actor();
+                GetAllActors();
                 a.ActorId = Utility.GetValidIntInput("the ActorID");
                 a.FirstName = Utility.GetValidRawInput("the FirstName");
                 a.LastName = Utility.GetValidRawInput("the LastName");
@@ -438,7 +489,7 @@ namespace Film_Management_System
                 Actor a = new Actor();
                 ActorBusinessLayer al = new ActorBusinessLayer();
                 GetAllActors();
-                Console.WriteLine("Enter the Actor ID");
+                a.ActorId = Utility.GetValidIntInput("the ActorID");
                 a.FirstName = Utility.GetValidRawInput("the First Name");
                 a.LastName= Utility.GetValidRawInput("the Last Name");
                 bool g = al.ModifyActor(a);
@@ -452,7 +503,77 @@ namespace Film_Management_System
                     Console.WriteLine("Failed");
                 }
             }
+            static void RemoveActor()
+            {
+                Actor a = new Actor();
+               
+                ActorBusinessLayer k = new ActorBusinessLayer();
+                GetAllActors();
+                int ActorId = Utility.GetValidIntInput("the Actor ID to be deleted");
+                bool f = k.RemoveActor(ActorId);
+                if (f)
+                {
+                    Console.WriteLine("Success");
 
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
+            static void AddLanguage()
+            {
+                LanguageBusinessLayer dl = new LanguageBusinessLayer();
+                Language a = new Language();
+                GetAllLanguages();
+                a.Name = Utility.GetValidRawInput("the Language");
+               
+
+                bool h = dl.NewLanguage(a);
+                if (h)
+                {
+                    Console.WriteLine("Success");
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
+            static void ModifyLanguage()
+            {
+                Language a = new Language();
+                LanguageBusinessLayer al = new LanguageBusinessLayer();
+                GetAllLanguages();
+                a.Name= Utility.GetValidRawInput("the Name");
+
+                bool g = al.ModifyLanguage(a);
+                if (g)
+                {
+
+                    Console.WriteLine("Success");
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
+            static void RemoveLanguage()
+            {
+                Language a = new Language();
+                LanguageBusinessLayer k = new LanguageBusinessLayer();
+                GetAllLanguages();
+                a.LanguageId= Utility.GetValidIntInput("the Language_Id to be deleted");
+                bool f = k.RemoveLanguage(a);
+                if (f)
+                {
+                    Console.WriteLine("Success");
+
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
             static void ModifyMovie()
             {
                 Film fil = new Film();
@@ -477,6 +598,7 @@ namespace Film_Management_System
             {
                 Film fil = new Film();
                 FilmBusinessLayer k = new FilmBusinessLayer();
+                GetAllMovies();
                 fil.FilmId = Utility.GetValidIntInput("the Movie ID to be deleted");
                 bool f = k.RemoveMovie(fil);
                 if (f)
@@ -489,22 +611,7 @@ namespace Film_Management_System
                     Console.WriteLine("Failed");
                 }
             }
-            static void RemoveActor()
-            {
-                Actor a = new Actor();
-                ActorBusinessLayer k = new ActorBusinessLayer();
-                a.ActorId= Utility.GetValidIntInput("the Actor ID to be deleted");
-                bool f = k.RemoveActor(a);
-                if (f)
-                {
-                    Console.WriteLine("Success");
-
-                }
-                else
-                {
-                    Console.WriteLine("Failed");
-                }
-            }
+            
             static void GetAllLanguages()
             {
 
@@ -556,6 +663,59 @@ namespace Film_Management_System
                   
                 }
                 Console.WriteLine("-----------------------");
+            }
+            static void AddCategory()
+            {
+                CategoryBusinessLayer dl = new CategoryBusinessLayer();
+                Category a = new Category();
+                GetAllCategory();
+                a.Name = Utility.GetValidRawInput("the Category");
+
+
+                bool h = dl.NewCategory(a);
+                if (h)
+                {
+                    Console.WriteLine("Success");
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
+            static void ModifyCategory()
+            {
+                Category a = new Category();
+                CategoryBusinessLayer al = new CategoryBusinessLayer();
+                GetAllCategory();
+                a.Name = Utility.GetValidRawInput("the Name");
+
+                bool g = al.ModifyCategory(a);
+                if (g)
+                {
+
+                    Console.WriteLine("Success");
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
+            static void RemoveCategory()
+            {
+                Category a = new Category();
+                CategoryBusinessLayer k = new CategoryBusinessLayer();
+                GetAllCategory();
+                a.CategoryId = Utility.GetValidIntInput("the Category_Id to be deleted");
+                bool f = k.RemoveCategory(a);
+                if (f)
+                {
+                    Console.WriteLine("Success");
+
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
             }
             Console.Read();
         }
