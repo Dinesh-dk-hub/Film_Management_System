@@ -1,4 +1,5 @@
 ﻿using Entity_Layer;
+using Exception_Layer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -32,10 +33,11 @@ namespace Data_Access_Layer
                     con.Close();
                 }
             }
-            catch (Exception e)
+            catch (InvalidAttemptException ex)
             {
-                throw e;
+                Console.WriteLine(ex.Message);
             }
+           
             return lstCategory;
         }
         public List<Category> GetAllCategory()

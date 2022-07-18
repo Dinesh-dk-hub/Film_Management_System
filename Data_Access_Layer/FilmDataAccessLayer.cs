@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
+using Exception_Layer;
 using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
@@ -49,10 +50,11 @@ namespace Data_Access_Layer
                     }
                 }
             }
-            catch (Exception ex)
+            catch (InvalidAttemptException ex)
             {
-                throw ex;
+                Console.WriteLine(ex.Message);
             }
+
             return lstFilms;
         }
 
@@ -80,10 +82,11 @@ namespace Data_Access_Layer
                     con.Close();
                 }
             }
-            catch (Exception e)
+            catch (InvalidAttemptException ex)
             {
-                throw e;
+                Console.WriteLine(ex.Message);
             }
+
             return f;
         }
         public List<Film> GetFilmByRating(int rate)
@@ -114,10 +117,11 @@ namespace Data_Access_Layer
                     con.Close();
                 }
             }
-            catch (Exception e)
+            catch (InvalidAttemptException ex)
             {
-                throw e;
+                Console.WriteLine(ex.Message);
             }
+
             return lstratings;
         }
         public List<Film> GetAllFilms()
@@ -145,10 +149,11 @@ namespace Data_Access_Layer
                     }
                 }
             }
-            catch (Exception ex)
+            catch (InvalidAttemptException ex)
             {
-                throw ex;
+                Console.WriteLine(ex.Message);
             }
+
             return lstFilms;
         }
         public List<Film> GetFilmByMethods(string t, string year, int rate)
@@ -175,10 +180,11 @@ namespace Data_Access_Layer
                     con.Close();
                 }
             }
-            catch (Exception e)
+            catch (InvalidAttemptException ex)
             {
-                throw e;
+                Console.WriteLine(ex.Message);
             }
+
             return lstMethods;
         }
 

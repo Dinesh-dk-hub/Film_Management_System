@@ -1,5 +1,6 @@
 ﻿using Entity_Layer;
 using System;
+using Exception_Layer;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -38,10 +39,11 @@ namespace Data_Access_Layer
                     con.Close();
                 }
             }
-            catch (Exception e)
+            catch (InvalidAttemptException ex)
             {
-                throw e;
+                Console.WriteLine(ex.Message);
             }
+
             return lstActor;
         }
         public List<Actor> GetAllActors()
@@ -68,10 +70,11 @@ namespace Data_Access_Layer
                     }
                 }
             }
-            catch (Exception ex)
+            catch (InvalidAttemptException ex)
             {
-                throw ex;
+                Console.WriteLine(ex.Message);
             }
+
             return lstActor;
         }
         public bool NewActor(Actor a)
