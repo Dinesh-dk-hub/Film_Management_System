@@ -8,7 +8,7 @@ namespace Business_Layer
 {
     public class ActorBusinessLayer
     {
-        public List<Film> GetFilmByRating(string e)
+        public List<Film> GetFilmByActor(string e)
         {
             Film f = new Film();
             List<Film> lstActor = new List<Film>();
